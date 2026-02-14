@@ -1,14 +1,15 @@
 FROM odoo:18.0
 
 USER root
-# On installe le client postgres pour tester la connexion si besoin
+# On installe le client Postgres pour pouvoir créer le nouvel utilisateur
 RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 
-USER odoo
+# On copie le script de démarrage
+COPY start.sh /usr/bin/start.sh
+RUN chmod +x /usr/bin/start.sh
 
-# On annule l'ENTRYPOINT pour prendre le contrôle total
+# On ne touche pas à l'USER dans Dockerfile, on laisse le script gérer
 ENTRYPOINT []
 
-# COMMANDE "SNIPER" : On met l'adresse et le mot de passe EN DUR.
-# Plus aucune variable d'environnement capricieuse !
-CMD ["/bin/bash", "-c", "exec /usr/bin/python3 /usr/bin/odoo --db_host=postgres.railway.internal --db_port=5432 --db_user=postgres --db_password=ERFLAGKKcFKOSlXkwiusIJSkMltsATWp --database=odoo_master --without-demo=all --init=base"]
+# On lance Odoo via notre script intelligent
+CMD ["/usr/bin/start.sh"]
