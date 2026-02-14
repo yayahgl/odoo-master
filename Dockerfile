@@ -1,14 +1,16 @@
-# Utiliser l'image officielle Odoo 18
 FROM odoo:18.0
 
 USER root
 
-# Installer des outils utiles pour la migration
-RUN apt-get update && apt-get install -y \
-    postgresql-client \
-    && rm -rf /var/lib/apt/lists/*
+# On installe les outils
+RUN apt-get update && apt-get install -y postgresql-client
 
-# Copier une configuration personnalisée si besoin
-# COPY ./odoo.conf /etc/odoo/odoo.conf
+# On copie notre script perso
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
 
 USER odoo
+
+# On force Odoo à utiliser notre script
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+CMD ["odoo"]
