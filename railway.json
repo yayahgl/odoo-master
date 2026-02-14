@@ -7,7 +7,7 @@
       "builder": "DOCKERFILE"
     },
     "deploy": {
-      "startCommand": "odoo --db_host=${{Postgres.PGHOST}} --db_port=${{Postgres.PGPORT}} --db_user=${{Postgres.PGUSER}} --db_password=${{Postgres.PGPASSWORD}} --database=odoo_master --init=base"
+      "startCommand": "/usr/bin/python3 /usr/bin/odoo --db_host=${{Postgres.PGHOST}} --db_port=${{Postgres.PGPORT}} --db_user=${{Postgres.PGUSER}} --db_password=${{Postgres.PGPASSWORD}} --database=odoo_master --db_template=False"
     }
   },
   "database": {
