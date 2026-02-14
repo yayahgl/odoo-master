@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "service": {
+    "name": "odoo-master",
+    "icon": "🐘",
+    "build": {
+      "builder": "DOCKERFILE"
+    },
+    "variables": {
+      "HOST": "${{Postgres.PGHOST}}",
+      "USER": "${{Postgres.PGUSER}}",
+      "PASSWORD": "${{Postgres.PGPASSWORD}}",
+      "PORT": "${{Postgres.PGPORT}}",
+      "DATABASE": "${{Postgres.PGDATABASE}}"
+    }
+  },
+  "database": {
+    "engine": "postgresql",
+    "version": "15"
+  }
+}
