@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "service": {
+    "name": "odoo-master",
+    "icon": "🐘",
+    "build": {
+      "builder": "DOCKERFILE"
+    },
+    "deploy": {
+      "startCommand": "odoo --db_host=${{Postgres.PGHOST}} --db_port=${{Postgres.PGPORT}} --db_user=${{Postgres.PGUSER}} --db_password=${{Postgres.PGPASSWORD}} --database=odoo_master --init=base"
+    }
+  },
+  "database": {
+    "engine": "postgresql",
+    "version": "15"
+  }
+}
